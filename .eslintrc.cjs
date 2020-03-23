@@ -25,7 +25,7 @@ module.exports = {
     'linebreak-style': ['error', 'unix'],
     'arrow-parens': ['error', 'always'],
     'no-debugger': 'warn',
-    'import/extensions': ['error', 'always'],
+    'import/extensions': ['error', 'ignorePackages'],
     'import/no-extraneous-dependencies': [
       'error',
       {
