@@ -1,0 +1,16 @@
+{
+  "name": "@lewisl9029/eslint-rules",
+  "type": "module",
+  "main": "./eslintrc.cjs",
+  "exports": {
+    ".": "./eslintrc.cjs"
+  },
+  "dependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-json": "^2.1.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^2.0.1"
+  }
+}
