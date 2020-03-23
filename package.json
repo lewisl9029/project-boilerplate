@@ -1,9 +1,13 @@
 {
   "name": "@lewisl9029/eslint-rules",
+  "version": "0.0.2",
   "type": "module",
-  "main": "./eslintrc.cjs",
+  "main": "./.eslintrc.cjs",
   "exports": {
-    ".": "./eslintrc.cjs"
+    ".": "./.eslintrc.cjs"
+  },
+  "scripts": {
+    "publish-package": "yarn publish --access public"
   },
   "dependencies": {
     "eslint": "^6.8.0",
