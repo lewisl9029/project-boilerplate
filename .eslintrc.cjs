@@ -7,7 +7,7 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
-  env: { es2020: true },
+  env: { es2020: true, 'shared-node-browser': true },
   rules: {
     'prettier/prettier': [
       'error',
