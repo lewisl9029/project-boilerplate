@@ -3,6 +3,7 @@
 // eslint-disable-next-line no-undef
 module.exports = {
   plugins: ['prettier', 'import', 'html', 'json'],
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',

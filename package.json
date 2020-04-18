@@ -1,6 +1,6 @@
 {
   "name": "@lewisl9029/eslint-rules",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "main": "./.eslintrc.cjs",
   "exports": {
@@ -10,6 +10,9 @@
     "publish-package": "yarn publish --access public"
   },
   "dependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-import": "^2.20.1",
