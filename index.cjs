@@ -3,7 +3,8 @@ const env = {
   browser: { browser: true },
 }
 
-const config = ({ environment = 'browser' } = {}) => ({
+const config = ({ environment, isRoot } = {}) => ({
+  root: !!isRoot,
   plugins: ['prettier', 'import', 'html', 'json'],
   parser: '@babel/eslint-parser',
   parserOptions: {
