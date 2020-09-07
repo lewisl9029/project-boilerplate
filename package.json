@@ -2,10 +2,10 @@
   "name": "@lewisl9029/eslint-config",
   "version": "0.0.10",
   "type": "module",
-  "main": "./.index.cjs",
+  "main": "./index.cjs",
   "license": "MIT",
   "exports": {
-    ".": "./.index.cjs"
+    ".": "./index.cjs"
   },
   "scripts": {
     "test": "yarn eslint test.js"
