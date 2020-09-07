@@ -8,7 +8,6 @@
     ".": "./.index.cjs"
   },
   "scripts": {
-    "publish-package": "yarn publish --access public",
     "test": "yarn eslint test.js"
   },
   "dependencies": {
