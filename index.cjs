@@ -16,7 +16,7 @@ const config = ({ environment, isRoot } = {}) => ({
   overrides: [
     {
       files: ['**/*.cjs'],
-      env: { es2021: true, ...env.node },
+      env: env.node,
     },
   ],
   rules: {
@@ -41,7 +41,6 @@ const config = ({ environment, isRoot } = {}) => ({
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: false,
         optionalDependencies: false,
         peerDependencies: false,
       },

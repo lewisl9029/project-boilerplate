@@ -8,7 +8,7 @@
     ".": "./index.cjs"
   },
   "scripts": {
-    "test": "yarn eslint test.js"
+    "test": "yarn eslint test.js && yarn eslint test.cjs"
   },
   "dependencies": {
     "@babel/core": "^7.11.6",
