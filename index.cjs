@@ -1,6 +1,7 @@
 const env = {
   node: { node: true },
   browser: { browser: true },
+  none: {},
 }
 
 const config = ({ environment, isRoot } = {}) => ({
@@ -12,6 +13,12 @@ const config = ({ environment, isRoot } = {}) => ({
     sourceType: 'module',
   },
   env: { es2021: true, ...env[environment] },
+  overrides: [
+    {
+      files: ['**/*.cjs'],
+      env: { es2021: true, ...env.node },
+    },
+  ],
   rules: {
     'prettier/prettier': [
       'error',
@@ -61,6 +68,12 @@ const config = ({ environment, isRoot } = {}) => ({
   },
 })
 
+const babelConfig = {
+  presets: ['@babel/preset-env'],
+  plugins: ['@babel/plugin-syntax-import-meta'],
+}
+
 module.exports = {
   config,
+  babelConfig,
 }
