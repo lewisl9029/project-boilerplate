@@ -1,6 +1,6 @@
 {
   "name": "@lewisl9029/eslint-config",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "type": "module",
   "main": "./index.cjs",
   "license": "MIT",
