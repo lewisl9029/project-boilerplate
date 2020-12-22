@@ -1,35 +1,31 @@
 {
-  "name": "@lewisl9029/eslint-config",
-  "version": "0.0.14",
+  "name": "@lewisl9029/project-boilerplate",
+  "version": "0.0.15",
   "type": "module",
   "main": "./index.cjs",
   "license": "MIT",
+  "bin": {
+    "jsconfig": "./jsconfig.js"
+  },
   "exports": {
     ".": "./index.cjs"
   },
   "scripts": {
-    "test": "yarn eslint test.js && yarn eslint test.cjs"
+    "test": "yarn eslint tests/test.js && yarn prettier --check tests/test.js && yarn eslint tests/test.cjs && yarn prettier --check tests/test.cjs && node jsconfig.js tests/test.importmap ./tests"
   },
   "dependencies": {
     "@babel/core": "^7.11.6",
     "@babel/eslint-parser": "^7.11.5",
+    "@babel/eslint-plugin": "^7.11.5",
     "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@babel/preset-env": "^7.11.5",
-    "eslint": "^7.8.1",
-    "prettier": "^2.1.1"
-  },
-  "devDependencies": {
-    "@babel/eslint-plugin": "^7.11.5",
-    "eslint-plugin-html": "^6.1.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-json": "^2.1.2",
-    "eslint-plugin-prettier": "^3.1.4"
-  },
-  "peerDependencies": {
-    "@babel/eslint-plugin": "^7.11.5",
+    "eslint": "^7.16.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-json": "^2.1.2",
-    "eslint-plugin-prettier": "^3.1.4"
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "prettier": "^2.2.1"
   }
 }

@@ -4,9 +4,15 @@ const env = {
   none: {},
 }
 
-const config = ({ environment, isRoot } = {}) => ({
+const eslintConfig = ({ environment, isRoot } = {}) => ({
   root: !!isRoot,
-  plugins: ['prettier', 'import', 'html', 'json'],
+  plugins: [
+    // 'prettier',
+    'import',
+    'html',
+    'json',
+    'react-hooks',
+  ],
   parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaVersion: 2021,
@@ -20,20 +26,23 @@ const config = ({ environment, isRoot } = {}) => ({
     },
   ],
   rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        semi: false,
-        trailingComma: 'all',
-        arrowParens: 'always',
-        endOfLine: 'lf',
-      },
-    ],
+    // 'prettier/prettier': [
+    //   'error',
+    //   {
+    //     singleQuote: true,
+    //     semi: false,
+    //     trailingComma: 'all',
+    //     arrowParens: 'always',
+    //     endOfLine: 'lf',
+    //   },
+    // ],
     // This conflicts with prettier and results in alternate errors on fix
     // indent: ['error', 2, { flatTernaryExpressions: false }],
     'no-undef': ['error'],
-    'no-unused-vars': ['warn'],
+    'no-unused-vars': [
+      'warn',
+      { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
+    ],
     'linebreak-style': ['error', 'unix'],
     'arrow-parens': ['error', 'always'],
     'no-debugger': 'warn',
@@ -53,7 +62,7 @@ const config = ({ environment, isRoot } = {}) => ({
         },
       },
     ],
-    'import/no-unresolved': 'error',
+    'import/no-unresolved': ['error'],
     'comma-dangle': [
       'error',
       {
@@ -64,15 +73,59 @@ const config = ({ environment, isRoot } = {}) => ({
         functions: 'always-multiline',
       },
     ],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': [
+      'error',
+      {
+        additionalHooks: '(.*useCallback|.*useEffect)',
+      },
+    ],
   },
 })
+
+const eslintConfigWithImportmap = ({ config, root, importmapPath }) => {
+  const imports = JSON.parse(require('fs').readFileSync(importmapPath)).imports
+  return {
+    ...config,
+    rules: {
+      ...config.rules,
+      'import/no-unresolved': [
+        'error',
+        {
+          ignore: Object.entries(imports)
+            .filter(([from, to]) => to.startsWith('https://'))
+            .map(([from, to]) => from),
+        },
+      ],
+    },
+    settings: {
+      ...config.settings,
+      'import/resolver': {
+        alias: Object.entries(imports).map(([from, to]) => [
+          from.endsWith('/') ? from.slice(0, -1) : from,
+          to.startsWith('/') ? `${root}${to}` : to,
+        ]),
+      },
+    },
+  }
+}
 
 const babelConfig = {
   presets: ['@babel/preset-env'],
   plugins: ['@babel/plugin-syntax-import-meta'],
 }
 
+const prettierConfig = {
+  singleQuote: true,
+  semi: false,
+  trailingComma: 'all',
+  arrowParens: 'always',
+  endOfLine: 'lf',
+}
+
 module.exports = {
-  config,
+  eslintConfig,
+  eslintConfigWithImportmap,
   babelConfig,
+  prettierConfig,
 }

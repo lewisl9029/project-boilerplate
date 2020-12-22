@@ -1,3 +1,6 @@
+import test from '@tests/test.cjs'
+import '@dep/@lewisl9029/render-hooks'
+
 export const importMeta = () => {
   return import.meta
 }
