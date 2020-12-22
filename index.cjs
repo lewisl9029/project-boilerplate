@@ -62,7 +62,7 @@ const eslintConfig = ({ environment, isRoot } = {}) => ({
         },
       },
     ],
-    'import/no-unresolved': ['error'],
+    'import/no-unresolved': ['error', { ignore: ['^https://.*$'] }],
     'comma-dangle': [
       'error',
       {
@@ -92,9 +92,12 @@ const eslintConfigWithImportmap = ({ config, root, importmapPath }) => {
       'import/no-unresolved': [
         'error',
         {
-          ignore: Object.entries(imports)
-            .filter(([from, to]) => to.startsWith('https://'))
-            .map(([from, to]) => from),
+          ignore: [
+            ...config.rules['import/no-unresolved'][1],
+            Object.entries(imports)
+              .filter(([from, to]) => to.startsWith('https://'))
+              .map(([from, to]) => from),
+          ],
         },
       ],
     },

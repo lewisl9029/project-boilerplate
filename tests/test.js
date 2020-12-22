@@ -1,4 +1,5 @@
-import test from '@tests/test.cjs'
+import '@tests/test.cjs'
+import 'https://jspm.dev/react'
 import '@dep/@lewisl9029/render-hooks'
 
 export const importMeta = () => {
