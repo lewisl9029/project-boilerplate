@@ -93,8 +93,8 @@ const eslintConfigWithImportmap = ({ config, root, importmapPath }) => {
         'error',
         {
           ignore: [
-            ...config.rules['import/no-unresolved'][1],
-            Object.entries(imports)
+            ...config.rules['import/no-unresolved']?.[1]?.ignore,
+            ...Object.entries(imports)
               .filter(([from, to]) => to.startsWith('https://'))
               .map(([from, to]) => from),
           ],
