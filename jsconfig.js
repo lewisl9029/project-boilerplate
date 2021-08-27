@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+/* eslint-env node */
 import * as fs from 'fs'
 
 const args = process.argv.slice(2)
@@ -16,7 +16,7 @@ const content = JSON.stringify(
       baseUrl: root,
       paths: Object.fromEntries(
         Object.entries(importmap.imports)
-          .filter(([from, to]) => from.endsWith('/'))
+          .filter(([from, _to]) => from.endsWith('/'))
           .map(([from, to]) => [
             `${from}*`,
             [to.startsWith('/') ? `.${to}*` : to],

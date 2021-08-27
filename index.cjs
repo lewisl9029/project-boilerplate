@@ -1,10 +1,19 @@
-const env = {
-  node: { node: true },
-  browser: { browser: true },
-  none: {},
+// TODO: refactor into env specific modules with shared pieces
+const environments = {
+  node: 'node',
+  deno: 'deno',
+  browser: 'browser',
+  none: 'none',
 }
 
-const eslintConfig = ({ environment, isRoot } = {}) => ({
+const env = {
+  [environments.node]: { node: true },
+  [environments.browser]: { browser: true },
+  [environments.deno]: { browser: true },
+  [environments.none]: {},
+}
+
+const eslintConfig = ({ environment = environments.browser, isRoot } = {}) => ({
   root: !!isRoot,
   plugins: [
     // 'prettier',
@@ -25,6 +34,12 @@ const eslintConfig = ({ environment, isRoot } = {}) => ({
       env: env.node,
     },
   ],
+  globals:
+    environment === environments.deno
+      ? {
+          Deno: 'readonly',
+        }
+      : undefined,
   rules: {
     // 'prettier/prettier': [
     //   'error',
@@ -95,8 +110,8 @@ const eslintConfigWithImportmap = ({ config, root, importmapPath }) => {
           ignore: [
             ...config.rules['import/no-unresolved']?.[1]?.ignore,
             ...Object.entries(imports)
-              .filter(([from, to]) => to.startsWith('https://'))
-              .map(([from, to]) => from),
+              .filter(([_from, to]) => to.startsWith('https://'))
+              .map(([from, _to]) => from),
           ],
         },
       ],
@@ -127,6 +142,7 @@ const prettierConfig = {
 }
 
 module.exports = {
+  environments,
   eslintConfig,
   eslintConfigWithImportmap,
   babelConfig,
