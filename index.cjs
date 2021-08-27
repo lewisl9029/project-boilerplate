@@ -130,7 +130,10 @@ const eslintConfigWithImportmap = ({ config, root, importmapPath }) => {
 
 const babelConfig = {
   presets: ['@babel/preset-env'],
-  plugins: ['@babel/plugin-syntax-import-meta'],
+  plugins: [
+    '@babel/plugin-syntax-import-meta',
+    '@babel/plugin-syntax-top-level-await',
+  ],
 }
 
 const prettierConfig = {
