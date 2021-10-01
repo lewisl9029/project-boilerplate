@@ -133,6 +133,7 @@ const babelConfig = {
   plugins: [
     '@babel/plugin-syntax-import-meta',
     '@babel/plugin-syntax-top-level-await',
+    '@babel/plugin-syntax-jsx',
   ],
 }
 

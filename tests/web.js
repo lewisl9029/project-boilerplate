@@ -18,3 +18,5 @@ export const nestedTernary = () => {
     ? true
     : false
 }
+
+export const Component = () => <div>hi</div>
