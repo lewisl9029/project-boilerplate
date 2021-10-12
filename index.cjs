@@ -120,7 +120,7 @@ const eslintConfigWithImportmap = ({ config, root, importmapPath }) => {
     settings: {
       ...config.settings,
       'import/resolver': {
-        [path_.resolve('./eslint-import-resolver-web.cjs')]: {
+        [path_.resolve(__dirname, './eslint-import-resolver-web.cjs')]: {
           rootPath: root,
           importmapPath: importmapPath,
         },
