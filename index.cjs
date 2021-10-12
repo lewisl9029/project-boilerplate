@@ -1,3 +1,5 @@
+const path_ = require('path')
+
 // TODO: refactor into env specific modules with shared pieces
 const environments = {
   node: 'node',
@@ -77,7 +79,7 @@ const eslintConfig = ({ environment = environments.browser, isRoot } = {}) => ({
         },
       },
     ],
-    'import/no-unresolved': ['error', { ignore: ['^https://.*$'] }],
+    'import/no-unresolved': 'error',
     'comma-dangle': [
       'error',
       {
@@ -99,30 +101,29 @@ const eslintConfig = ({ environment = environments.browser, isRoot } = {}) => ({
 })
 
 const eslintConfigWithImportmap = ({ config, root, importmapPath }) => {
-  const imports = JSON.parse(require('fs').readFileSync(importmapPath)).imports
   return {
     ...config,
-    rules: {
-      ...config.rules,
-      'import/no-unresolved': [
-        'error',
-        {
-          ignore: [
-            ...config.rules['import/no-unresolved']?.[1]?.ignore,
-            ...Object.entries(imports)
-              .filter(([_from, to]) => to.startsWith('https://'))
-              .map(([from, _to]) => from),
-          ],
-        },
-      ],
-    },
+    // rules: {
+    //   ...config.rules,
+    //   'import/no-unresolved': [
+    //     'error',
+    //     {
+    //       ignore: [
+    //         ...config.rules['import/no-unresolved']?.[1]?.ignore,
+    //         ...Object.entries(imports)
+    //           .filter(([_from, to]) => to.startsWith('https://'))
+    //           .map(([from, _to]) => from),
+    //       ],
+    //     },
+    //   ],
+    // },
     settings: {
       ...config.settings,
       'import/resolver': {
-        alias: Object.entries(imports).map(([from, to]) => [
-          from.endsWith('/') ? from.slice(0, -1) : from,
-          to.startsWith('/') ? `${root}${to}` : to,
-        ]),
+        [path_.resolve('./eslint-import-resolver-web.cjs')]: {
+          rootPath: root,
+          importmapPath: importmapPath,
+        },
       },
     },
   }

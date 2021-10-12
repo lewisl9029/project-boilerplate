@@ -1,6 +1,8 @@
 import '@tests/node.cjs'
 import 'https://jspm.dev/react'
 import '@dep/@lewisl9029/render-hooks'
+import '/root.js'
+import '/exactMatch.js'
 
 export const importMeta = () => {
   return import.meta

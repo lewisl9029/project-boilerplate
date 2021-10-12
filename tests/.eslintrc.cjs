@@ -5,6 +5,6 @@ const { eslintConfig, eslintConfigWithImportmap } = require('../index.cjs')
 
 module.exports = eslintConfigWithImportmap({
   config: eslintConfig({ isRoot: true }),
-  importmapPath: './tests/web.importmap',
-  root: './tests',
+  importmapPath: './web.importmap',
+  root: __dirname,
 })

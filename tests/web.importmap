@@ -1,6 +1,7 @@
 {
   "imports": {
     "@tests/": "/",
+    "/exactMatch.js": "/root.js",
     "@dep/@lewisl9029/render-hooks": "https://jspm.dev/npm:@lewisl9029/render-hooks@2.0.1",
     "@dep/@lewisl9029/use-styles": "https://jspm.dev/npm:@lewisl9029/use-styles@1.0.0",
     "@dep/react": "https://jspm.dev/npm:react@17.0.1",
