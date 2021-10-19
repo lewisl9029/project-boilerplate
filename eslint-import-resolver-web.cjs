@@ -74,5 +74,16 @@ exports.resolve = (source, file, config) => {
     }
   }
 
+  if (source.startsWith('.')) {
+    const path = path_.resolve(path_.dirname(file), source)
+    if (fs_.existsSync(path)) {
+      return { found: true, path }
+    }
+
+    return {
+      found: false,
+    }
+  }
+
   return { found: false }
 }

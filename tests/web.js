@@ -3,6 +3,7 @@ import 'https://jspm.dev/react'
 import '@dep/@lewisl9029/render-hooks'
 import '/root.js'
 import '/exactMatch.js'
+import './relative.js'
 
 export const importMeta = () => {
   return import.meta
