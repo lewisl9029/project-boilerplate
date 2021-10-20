@@ -5,6 +5,7 @@ const path_ = require('path')
 exports.interfaceVersion = 2
 
 exports.resolve = (source, file, config) => {
+  // FIXME: importmap should be optional
   const imports = JSON.parse(
     fs_.readFileSync(path_.resolve(config.rootPath, config.importmapPath)),
   ).imports
@@ -68,20 +69,36 @@ exports.resolve = (source, file, config) => {
     if (fs_.existsSync(path)) {
       return { found: true, path }
     }
-
-    return {
-      found: false,
-    }
   }
 
+  // Resolve relative paths
   if (source.startsWith('.')) {
     const path = path_.resolve(path_.dirname(file), source)
     if (fs_.existsSync(path)) {
       return { found: true, path }
     }
+  }
 
-    return {
-      found: false,
+  // Special case handling for typescript, check for .ts and .tsx on disk if we
+  // see .js imports that don't exist
+  const fileExtension = path_.extname(file)
+  if (
+    (fileExtension === '.ts' || fileExtension === '.tsx') &&
+    path_.extname(source) === '.js'
+  ) {
+    const sourceBasename = path_.basename(source, '.js')
+    if (
+      fs_.existsSync(path_.resolve(path_.dirname(file), sourceBasename + '.ts'))
+    ) {
+      return { found: true, path: sourceBasename + '.ts' }
+    }
+
+    if (
+      fs_.existsSync(
+        path_.resolve(path_.dirname(file), sourceBasename + '.tsx'),
+      )
+    ) {
+      return { found: true, path: sourceBasename + '.tsx' }
     }
   }
 

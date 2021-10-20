@@ -2,8 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./tests",
     "paths": {
-      "/*": ["./*"],
-      "@tests/*": ["./*"]
+      "/*": ["*"]
     }
   }
 }

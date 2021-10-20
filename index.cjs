@@ -23,8 +23,9 @@ const eslintConfig = ({ environment = environments.browser, isRoot } = {}) => ({
     'html',
     'json',
     'react-hooks',
+    '@typescript-eslint/eslint-plugin',
   ],
-  parser: '@babel/eslint-parser',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2021,
     sourceType: 'module',
@@ -63,7 +64,8 @@ const eslintConfig = ({ environment = environments.browser, isRoot } = {}) => ({
     'linebreak-style': ['error', 'unix'],
     'arrow-parens': ['error', 'always'],
     'no-debugger': 'warn',
-    'import/extensions': ['error', 'ignorePackages'],
+    // No need for this when we have import/no-unresolved, in fact causes problems for typescript
+    // 'import/extensions': ['error', 'ignorePackages'],
     'import/no-extraneous-dependencies': [
       'error',
       {
