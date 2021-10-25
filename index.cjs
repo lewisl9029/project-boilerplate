@@ -132,6 +132,7 @@ const eslintConfigWithImportmap = ({ config, root, importmapPath }) => {
 }
 
 const babelConfig = {
+  parserOpts: { plugins: ['importAssertions'] },
   presets: ['@babel/preset-env'],
   plugins: [
     '@babel/plugin-syntax-import-meta',
@@ -146,6 +147,15 @@ const prettierConfig = {
   trailingComma: 'all',
   arrowParens: 'always',
   endOfLine: 'lf',
+  // for import assertion support
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      options: {
+        parser: 'babel',
+      },
+    },
+  ],
 }
 
 module.exports = {

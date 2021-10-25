@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./tests",
-    "module": "es2020",
+    "module": "esnext",
     "jsx": "preserve",
     "paths": {
       "/*": ["*"]
