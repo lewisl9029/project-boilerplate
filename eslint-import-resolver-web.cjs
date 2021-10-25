@@ -63,12 +63,38 @@ exports.resolve = (source, file, config) => {
     }
   }
 
+  // Special case handling for typescript, check for .ts and .tsx on disk if we
+  // see .js imports that don't exist
+  const resolveTypescript = (path) => {
+    const fileExtension = path_.extname(file)
+    if (
+      (fileExtension === '.ts' || fileExtension === '.tsx') &&
+      path_.extname(source) === '.js'
+    ) {
+      const directory = path_.dirname(path)
+      const basename = path_.basename(path, '.js')
+      const pathWithoutExtension = path_.join(directory, basename)
+
+      if (fs_.existsSync(pathWithoutExtension + '.ts')) {
+        return { found: true, path: pathWithoutExtension + '.ts' }
+      }
+
+      if (fs_.existsSync(pathWithoutExtension + '.tsx')) {
+        return { found: true, path: pathWithoutExtension + '.tsx' }
+      }
+    }
+    return { found: false }
+  }
+
   // Resolve web-standard absolute url imports of the form '/blah.js'
   if (source.startsWith('/')) {
     const path = path_.join(config.rootPath, source)
+
     if (fs_.existsSync(path)) {
       return { found: true, path }
     }
+
+    return resolveTypescript(path)
   }
 
   // Resolve relative paths
@@ -77,29 +103,8 @@ exports.resolve = (source, file, config) => {
     if (fs_.existsSync(path)) {
       return { found: true, path }
     }
-  }
 
-  // Special case handling for typescript, check for .ts and .tsx on disk if we
-  // see .js imports that don't exist
-  const fileExtension = path_.extname(file)
-  if (
-    (fileExtension === '.ts' || fileExtension === '.tsx') &&
-    path_.extname(source) === '.js'
-  ) {
-    const sourceBasename = path_.basename(source, '.js')
-    if (
-      fs_.existsSync(path_.resolve(path_.dirname(file), sourceBasename + '.ts'))
-    ) {
-      return { found: true, path: sourceBasename + '.ts' }
-    }
-
-    if (
-      fs_.existsSync(
-        path_.resolve(path_.dirname(file), sourceBasename + '.tsx'),
-      )
-    ) {
-      return { found: true, path: sourceBasename + '.tsx' }
-    }
+    return resolveTypescript(path)
   }
 
   return { found: false }
