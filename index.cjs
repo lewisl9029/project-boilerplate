@@ -147,15 +147,15 @@ const prettierConfig = {
   trailingComma: 'all',
   arrowParens: 'always',
   endOfLine: 'lf',
-  // for import assertion support
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      options: {
-        parser: 'babel',
-      },
-    },
-  ],
+  // for import assertion support. not working since babel parser doesn't use plugins
+  // overrides: [
+  //   {
+  //     files: ['*.ts', '*.tsx'],
+  //     options: {
+  //       parser: 'babel',
+  //     },
+  //   },
+  // ],
 }
 
 module.exports = {
