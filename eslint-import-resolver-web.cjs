@@ -40,16 +40,19 @@ exports.resolve = (source, file, config) => {
 
   const importmapMatch = Object.entries(imports).find(
     ([key]) => key.endsWith('/') && source.startsWith(key),
-  )?.[1]
+  )
 
   if (importmapMatch) {
+    const [key, value] = importmapMatch
     // Don't try to resolve external urls to disk paths, assume they resolve
-    if (importmapMatch.startsWith('https://')) {
+    if (value.startsWith('https://')) {
       return { found: true, path: null }
     }
 
+    const sourcePath = source.substring(key.length)
+
     // TODO: cache to avoid checking same files? how to enable only for cli runs to prevent stale editor integration?
-    if (fs_.existsSync(path_.join(config.rootPath, importmapMatch))) {
+    if (fs_.existsSync(path_.join(config.rootPath, value, sourcePath))) {
       return {
         found: true,
         // If we return the real path, eslint-plugin-import will try to confirm case match
