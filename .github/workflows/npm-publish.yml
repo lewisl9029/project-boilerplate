@@ -36,7 +36,7 @@ jobs:
       - run: yarn test
       - run: yarn npm publish --access public --tolerate-republish
         env:
-          NPM_AUTH_TOKEN: ${{secrets.npm_token}}
+          YARN_NPM_AUTH_TOKEN: ${{secrets.npm_token}}
 
       - uses: actions/create-release@v1
         env:
