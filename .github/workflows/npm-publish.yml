@@ -6,8 +6,10 @@ name: Node.js Package
 on:
   push:
     # Sequence of patterns matched against refs/tags
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    branches:
+      - master
+    # tags:
+    #   - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
   publish-npm:
@@ -32,7 +34,7 @@ jobs:
 
       - run: yarn --immutable
       - run: yarn test
-      - run: yarn npm publish --access public
+      - run: yarn npm publish --access public --tolerate-republish
         env:
           NPM_AUTH_TOKEN: ${{secrets.npm_token}}
 
