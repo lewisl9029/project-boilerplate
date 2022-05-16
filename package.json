@@ -1,6 +1,6 @@
 {
   "name": "@lewisl9029/project-boilerplate",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "type": "module",
   "main": "./index.cjs",
   "license": "MIT",
@@ -11,7 +11,7 @@
     ".": "./index.cjs"
   },
   "scripts": {
-    "test": " yarn eslint './tests/**/*' && yarn prettier --check ./tests",
+    "test": "pnpm eslint ./tests/**/* && pnpm prettier --check ./tests",
     "jsconfig": "node ./jsconfig ./tests ./web.importmap"
   },
   "dependencies": {
@@ -22,16 +22,16 @@
     "@babel/plugin-syntax-jsx": "^7.16.0",
     "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "@babel/preset-env": "^7.16.0",
+    "@lewisl9029/eslint-plugin-react-hooks-for-react-anonymous": "^0.0.4",
     "@typescript-eslint/eslint-plugin": "^5.3.0",
     "@typescript-eslint/parser": "^5.3.0",
-    "eslint": "^8.1.0",
+    "eslint": "^8.15.0",
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-plugin-html": "^6.2.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.4.1",
-    "typescript": "^4.5.1-rc"
+    "typescript": "^4.5.1"
   }
 }

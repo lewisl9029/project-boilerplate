@@ -1,4 +1,4 @@
-const path_ = require('path')
+// const path_ = require('path')
 
 // TODO: refactor into env specific modules with shared pieces
 const environments = {
@@ -22,7 +22,7 @@ const eslintConfig = ({ environment = environments.browser, isRoot } = {}) => ({
     'import',
     'html',
     'json',
-    'react-hooks',
+    '@lewisl9029/react-hooks-for-react-anonymous',
     '@typescript-eslint/eslint-plugin',
   ],
   parser: '@typescript-eslint/parser',
@@ -66,22 +66,22 @@ const eslintConfig = ({ environment = environments.browser, isRoot } = {}) => ({
     'no-debugger': 'warn',
     // No need for this when we have import/no-unresolved, in fact causes problems for typescript
     // 'import/extensions': ['error', 'ignorePackages'],
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        optionalDependencies: false,
-        peerDependencies: false,
-      },
-    ],
-    'import/order': [
-      'error',
-      {
-        alphabetize: {
-          order: 'asc',
-        },
-      },
-    ],
-    'import/no-unresolved': 'error',
+    // 'import/no-extraneous-dependencies': [
+    //   'error',
+    //   {
+    //     optionalDependencies: false,
+    //     peerDependencies: false,
+    //   },
+    // ],
+    // 'import/order': [
+    //   'error',
+    //   {
+    //     alphabetize: {
+    //       order: 'asc',
+    //     },
+    //   },
+    // ],
+    // 'import/no-unresolved': 'error',
     'comma-dangle': [
       'error',
       {
@@ -92,8 +92,8 @@ const eslintConfig = ({ environment = environments.browser, isRoot } = {}) => ({
         functions: 'always-multiline',
       },
     ],
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': [
+    '@lewisl9029/react-hooks-for-react-anonymous/rules-of-hooks': 'error',
+    '@lewisl9029/react-hooks-for-react-anonymous/exhaustive-deps': [
       'error',
       {
         additionalHooks: '(.*useCallback|.*useEffect)',
@@ -102,34 +102,34 @@ const eslintConfig = ({ environment = environments.browser, isRoot } = {}) => ({
   },
 })
 
-const eslintConfigWithImportmap = ({ config, root, importmapPath }) => {
-  return {
-    ...config,
-    // rules: {
-    //   ...config.rules,
-    //   'import/no-unresolved': [
-    //     'error',
-    //     {
-    //       ignore: [
-    //         ...config.rules['import/no-unresolved']?.[1]?.ignore,
-    //         ...Object.entries(imports)
-    //           .filter(([_from, to]) => to.startsWith('https://'))
-    //           .map(([from, _to]) => from),
-    //       ],
-    //     },
-    //   ],
-    // },
-    settings: {
-      ...config.settings,
-      'import/resolver': {
-        [path_.resolve(__dirname, './eslint-import-resolver-web.cjs')]: {
-          rootPath: root,
-          importmapPath: importmapPath,
-        },
-      },
-    },
-  }
-}
+// const eslintConfigWithImportmap = ({ config, root, importmapPath }) => {
+//   return {
+//     ...config,
+//     // rules: {
+//     //   ...config.rules,
+//     //   'import/no-unresolved': [
+//     //     'error',
+//     //     {
+//     //       ignore: [
+//     //         ...config.rules['import/no-unresolved']?.[1]?.ignore,
+//     //         ...Object.entries(imports)
+//     //           .filter(([_from, to]) => to.startsWith('https://'))
+//     //           .map(([from, _to]) => from),
+//     //       ],
+//     //     },
+//     //   ],
+//     // },
+//     settings: {
+//       ...config.settings,
+//       'import/resolver': {
+//         [path_.resolve(__dirname, './eslint-import-resolver-web.cjs')]: {
+//           rootPath: root,
+//           importmapPath: importmapPath,
+//         },
+//       },
+//     },
+//   }
+// }
 
 const babelConfig = {
   parserOpts: { plugins: ['importAssertions'] },
@@ -161,7 +161,7 @@ const prettierConfig = {
 module.exports = {
   environments,
   eslintConfig,
-  eslintConfigWithImportmap,
+  // eslintConfigWithImportmap,
   babelConfig,
   prettierConfig,
 }
